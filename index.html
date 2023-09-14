@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Digital Clock | Pratham Mehta</title>
+</head>
+<body>
+    <div id="main-container" class="centered-flex">
+        <div id="outer" class="centered-flex">
+            <div id="inner">
+                <div id="clock-container">
+                    <ul class="h-marking centered-flex">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+    
+                    <ul class="m-marking centered-flex">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+    
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+    
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+    
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+    
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+    
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+    
+                    <div id="hands" class="centered-flex">
+                        <div id="hour-hand"></div>
+                        <div id="minute-hand"></div>
+                        <div id="second-hand"></div>
+                        <div id="dot"></div>
+                    </div>
+    
+                    <div id="date" class="centered-flex">
+                        <span></span>
+                    </div>
+    
+                    <div id="indicator" class="centered-flex"></div>
+                    <div id="digital-clk" class="centered-flex">
+                        <div id="time" class="centered-flex">
+                            <span class="value"></span>
+                            <span class="colon">:</span>
+                            <span class="value"></span>
+                            <span class="colon">:</span>
+                            <span class="value"></span>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="top-text">DUAL TIME</div>
+                <div class="func-text">
+                    <span>LIGHT</span>
+                    <span>ST/SP</span>
+                    <span>RESET</span>
+                    <span>MODE</span>
+                </div>
+                <span class="center-text">SPORTS</span>
+            </div>
+            <div class="buttons">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const hr_hand = document.getElementById("hour-hand");
+const min_hand = document.getElementById("minute-hand");
+const sec_hand = document.getElementById("second-hand");
+const val = document.querySelectorAll("#time .value");
+const dt = document.getElementById('date');
+const options = { weekday: 'short', month: 'short', day: 'numeric' };
+let indicator = document.getElementById('indicator')
+
+setInterval(() => {
+
+    let date = new Date();
+    dt.firstElementChild.innerText = date.toLocaleDateString('en-US', options);
+
+    let h = date.getHours();
+    let m = date.getMinutes();
+    let s = date.getSeconds();
+
+    h = h > 9 ? h : '0' + h
+    m = m > 9 ? m : '0' + m
+    s = s > 9 ? s : '0' + s
+
+    if (h > 12) {
+        h = h - 12;
+        indicator.innerText = 'PM';
+    }
+    else {
+        indicator.innerText = 'AM';
+    }
+
+    let ah = 30 * h + m / 2 + s / 120;
+    let am = 6 * m + s / 10;
+    let as = 6 * s;
+
+    hr_hand.style.transform = `translateY(-95%) rotate(${ah}deg)`;
+    min_hand.style.transform = `translateY(-95%) rotate(${am}deg)`;
+    sec_hand.style.transform = `translateY(-85%) rotate(${as}deg)`;
+    val[0].innerText = h;
+    val[1].innerText = m;
+    val[2].innerText = s;
+
+}, 1000)
+</script>
+</html>
